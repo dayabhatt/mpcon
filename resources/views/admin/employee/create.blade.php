@@ -58,7 +58,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="first_name" class="">First Name</label>
-                                            <input type="text"  class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name" value="">
+                                            <input type="text"  class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name" value="{{old('first_name')}}">
                                             @error('first_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -72,7 +72,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="last_name" class="">Last Name</label>
-                                            <input type="text"  class="form-control @error('first_name') is-invalid @enderror" id="last_name" name="last_name" value="">
+                                            <input type="text"  class="form-control @error('first_name') is-invalid @enderror" id="last_name" name="last_name" value="{{old('last_name')}}">
                                             @error('last_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -85,9 +85,10 @@
                                         <div class="form-group mb-2">
                                             <label for="employeetype" class="">Employee Type</label>
                                             <select class="form-control" name="employeetype" id="employeetype">
+                                                {{-- <option value="Jeff" {{ old('name', $DB->default-value) == 'Jeff' ? 'selected' : '' }}>Jeff</option> --}}
                                                 <option value="--">Select Type</option>
-                                                <option value="Professional">Professional</option>
-                                                <option value="Supporting Staff">Supporting Staff</option>
+                                                <option value="Professional" {{ old('employeetype') }}>Professional</option>
+                                                <option value="Supporting Staff" {{ old('employeetype') }}>Supporting Staff</option>
 
 
                                             </select>
@@ -141,14 +142,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="joining_date" class="">Joining Date</label>
-                                            <input type="text"  class="form-control " id="joining_date" name="joining_date">
+                                            <input type="text"  class="form-control " id="joining_date" name="joining_date" value="{{old('joining_date')}}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="joining_date" class="">Date of Birth</label>
-                                            <input type="text"  class="form-control " id="dob" name="dob">
+                                            <input type="text"  class="form-control " id="dob" name="dob" value="{{old('dob')}}">
                                         </div>
                                     </div>
 
@@ -159,7 +160,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="email" class="">Email</label>
-                                            <input type="text"  class="form-control @error('email') is-invalid @enderror" id="email" name="email">
+                                            <input type="text"  class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{old('email')}}">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -171,7 +172,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="phone" class="">Phone</label>
-                                            <input type="text"  class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone">
+                                            <input type="text"  class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{old('phone')}}">
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -187,21 +188,21 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="address" class="">Address</label>
-                                            <input type="text"  class="form-control " id="address" name="address">
+                                            <input type="text"  class="form-control " id="address" name="address" value="{{old('address')}}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="city" class="">City</label>
-                                            <input type="text"  class="form-control " id="city" name="city">
+                                            <input type="text"  class="form-control " id="city" name="city" value="{{old('city')}}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="state" class="">State</label>
-                                            <input type="text"  class="form-control " id="state" name="state">
+                                            <input type="text"  class="form-control " id="state" name="state" value="{{old('state')}}">
                                         </div>
                                     </div>
 
@@ -211,13 +212,23 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="password" class="">Password</label>
-                                            <input type="text"  class="form-control " id="password" name="password">
+                                            <input type="text"  class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group mb-2">
                                             <label for="password_confirmation" class="">Confirm Password</label>
-                                            <input type="text"  class="form-control " id="password_confirmation" name="password_confirmation">
+                                            <input type="text"  class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation">
+                                            @error('password_confirmation')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
