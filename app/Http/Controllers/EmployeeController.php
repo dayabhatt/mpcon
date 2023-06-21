@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -15,7 +17,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('admin.employee.index');
+        $employees=Employee::all();
+        return view('admin.employee.index')->with('employesses',$employees);
     }
 
    
@@ -45,9 +48,10 @@ class EmployeeController extends Controller
             'last_name' => 'required',
             'email' => 'required|email',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'password' => 'confirmed|min:6',
          ]);
 
-         $employeetyp=$request->employeetype;
+         $employeetype=$request->employeetype;
          $employee_parent_id=$request->employee_parent_id;
          $first_name=$request->first_name;
          $last_name=$request->last_name;
@@ -62,8 +66,8 @@ class EmployeeController extends Controller
          $employee_status='Active';
 
          $employee=Employee::create([
-            'employeetyp'=>$employeetyp,
-            'employee_parent_id'=>$employee_parent_id,
+            'employeetype'=>$employeetype,
+            'employee_parent_id'=>$employee_parent_id=='--'?0:$employee_parent_id,
             'first_name'=>$first_name,
             'last_name'=>$last_name,
             'designation'=>$designation,
@@ -77,8 +81,18 @@ class EmployeeController extends Controller
             'employee_status'=>$employee_status,
         ]); 
 
+        $user=User::create([
+            'name'=>$first_name.''.$last_name,
+            'email'=>$email,
+            'password' => Hash::make($request->password)
+
+        ]);
+
+        $employee->user_id = $user->id;
+
+        $employee->save();
         
-        return Redirect::route('employee');
+        return Redirect::route('employee')->with('employesses',$employee);
 
         // return response(['success'=>1,'employee'=>$employee],200);
 
