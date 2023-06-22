@@ -7,18 +7,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function employeedata(Request $request,Employee $employee)
+    {
+        $output=[];
+
+        $output[]=['designation'=>$employee->designation,'dob'=>$employee->dob];
+        
+        // return response(['employee'=>$employee]);
+        return $output;
+    }
     public function index()
     {
         $employees=Employee::all();
-        return view('admin.employee.index')->with('employesses',$employees);
+        $user = Auth::user();
+        return view('admin.employee.index')->with('employesses',$employees)->with('user',$user);
     }
 
    
@@ -35,8 +42,8 @@ class EmployeeController extends Controller
                 $output[]=['id'=>$parent->id,'name'=>$parent->first_name.' '.$parent->last_name];
             }
         }
-        
-        return view('admin.employee.create')->with('parents',$output);
+        $user = Auth::user();
+        return view('admin.employee.create')->with('parents',$output)->with('user',$user);
         
     }
 
@@ -92,7 +99,7 @@ class EmployeeController extends Controller
 
         $employee->save();
         
-        return Redirect::route('employee')->with('employesses',$employee);
+        return Redirect::route('employee')->with('employesses',$employee)->withSuccess('Employee Save Successfully');
 
         // return response(['success'=>1,'employee'=>$employee],200);
 
@@ -109,37 +116,67 @@ class EmployeeController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employee $employee)
+    
+    public function edit(Request $request,Employee $employee)
     {
-        //
+        $output=[];
+
+        $parents=Employee::all();
+
+        if($parents)
+        {
+            foreach($parents as $parent)
+            {
+                $output[]=['id'=>$parent->id,'name'=>$parent->first_name.' '.$parent->last_name];
+            }
+        }
+
+        $user = Auth::user();
+
+        return view('admin.employee.edit')->with('employee',$employee)->with('parents',$output)->with('user',$user);;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, Employee $employee)
     {
-        //
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'password' => 'confirmed|min:6',
+         ]);
+
+         $employee->employeetype=$request->employeetype;
+         $employee->employee_parent_id=$request->employee_parent_id=='--'?0:$request->employee_parent_id;
+         $employee->first_name=$request->first_name;
+         $employee->last_name=$request->last_name;
+         $employee->designation=$request->designation;
+         $employee->joining_date=$request->joining_date;
+         $employee->dob=$request->dob;
+         $employee->email=$request->email;
+         $employee->phone=$request->phone;
+         $employee->address=$request->address;
+         $employee->city=$request->city;
+         $employee->state=$request->state;
+         $employee->employee_status='Active';
+
+         $employee->save();
+
+         
+        
+        return Redirect::route('employee')->with('employesses',$employee)->withSuccess('Employee Save Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employee $employee)
+    
+    public function destroy(Request $request,Employee $employee)
     {
-        //
+        $user=User::find($employee->user_id);
+        $user->delete();
+        $employee->delete();
+
+        return Redirect::route('employee')->with('employesses',$employee);
+
+
     }
 }

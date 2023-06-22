@@ -23,6 +23,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sweetalert2.min.css')}}" rel="stylesheet">
     @yield('style')
     <link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
@@ -80,6 +81,8 @@
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/jquery-3.6.0.js') }}"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('js/datatables.min.js')}}"></script>
 
 
 
