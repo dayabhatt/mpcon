@@ -8,13 +8,19 @@
     $(document).ready(function($){
         $("#employee_id").change(function(){
             
-            var employee=$(this).value;
+            
 
+            var employee=$("#employee_id option:selected").val()
 
+            {{-- alert(employee); --}}
+
+            $("#designation").val('');
+            $("#dob").val('');
+            $('#educational_qualification').val('');
 
             $.ajax({
                 type: "GET",
-                url: "{{url('/employeedata/2')}}",
+                url: "{{url('/employeedata')}}"+ '/' + employee,
                 success: function(data)
                 {
                     // console.log("data:"+ (data[0]['designation']));

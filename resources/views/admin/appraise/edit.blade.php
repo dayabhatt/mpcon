@@ -8,13 +8,13 @@
     $(document).ready(function($){
         $("#employee_id").change(function(){
             
-            var employee=$(this).value;
+            var employee=$("#employee_id option:selected").val()
 
 
-
+            if(employee!=''){
             $.ajax({
                 type: "GET",
-                url: "{{url('/employeedata/2')}}",
+                url: "{{url('/employeedata')}}"+ '/' + employee,
                 success: function(data)
                 {
                     // console.log("data:"+ (data[0]['designation']));
@@ -25,6 +25,9 @@
 
             
             });
+        }
+
+            $('#employee_id').trigger('change');
         });
     })
 </script>
