@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/appraise/{appraise}/edit',[AppraiseController::class,'edit'])->name('appraise.edit');
     Route::post('/appraise/{appraise}/update',[AppraiseController::class,'update'])->name('appraise.update');
     Route::get('/appraise/{appraise}/delete',[AppraiseController::class,'destroy'])->name('appraise.delete');
+    Route::get('/appraise/{appraise}/updatereport',[AppraiseController::class,'updatereport'])->name('appraise.updatereport');
     
 
 });

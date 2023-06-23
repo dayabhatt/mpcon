@@ -50,5 +50,6 @@ class Appraise extends Model
                         ,'willingness_ranking','willingness_comments'
                         ,'comment_rofficer','needs_improvement'
                         ,'name_reporting_officer','designation_reporting_officer'
-                        ,'md_suggestion','md_date'];
+                        ,'md_suggestion','md_date'
+                        ,'send_to_reporting_officer'];
 }

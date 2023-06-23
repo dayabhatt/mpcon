@@ -70,7 +70,7 @@
                             <td>{{$appraise['dob']}}</td>
                             <td>{{$appraise['present_place_of_posting']}}</td>
                             <td>{{$appraise['appraisal_for_the_period']}}</td>
-                            <td><a href="{{  route('employee.edit',$appraise['id']) }}"><i class="fas fa-edit me-1"></i></a><a onclick="return confirm('Are you sure?')" href="{{  route('employee.delete',$appraise['id']) }}"><i class="fas fa-trash me-1"></i></a></td>
+                            <td><a href="{{  route('appraise.edit',$appraise['id']) }}"><i class="fas fa-edit me-1"></i></a><a onclick="return confirm('Are you sure?')" href="{{  route('appraise.delete',$appraise['id']) }}"><i class="fas fa-trash me-1"></i></a><a href="{{  route('appraise.updatereport',$appraise['id']) }}" title="Send to Reporting Officer!"><i class="fas fa-marker me-1"></i></a></td>
                         </tr>
                         @endforeach
                         
