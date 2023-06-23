@@ -16,7 +16,8 @@ class EmployeeController extends Controller
     {
         $output=[];
 
-        $output[]=['designation'=>$employee->designation,'dob'=>$employee->dob];
+        $output[]=['designation'=>$employee->designation,'dob'=>$employee->dob,
+        'educational_qualification'=>$employee->educational_qualification];
         
         // return response(['employee'=>$employee]);
         return $output;
@@ -70,6 +71,7 @@ class EmployeeController extends Controller
          $address=$request->address;
          $city=$request->city;
          $state=$request->state;
+         $educational_qualification=$request->educational_qualification;
          $employee_status='Active';
 
          $employee=Employee::create([
@@ -86,6 +88,7 @@ class EmployeeController extends Controller
             'city'=>$city,
             'state'=>$state,
             'employee_status'=>$employee_status,
+            'educational_qualification'=>$educational_qualification,
         ]); 
 
         $user=User::create([
@@ -160,6 +163,8 @@ class EmployeeController extends Controller
          $employee->city=$request->city;
          $employee->state=$request->state;
          $employee->employee_status='Active';
+         $employee->educational_qualification=$request->educational_qualification;
+
 
          $employee->save();
 

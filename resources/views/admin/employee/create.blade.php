@@ -181,6 +181,14 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="phone" class="">Educational Qualification</label>
+                                <input type="text"  class="form-control " id="educational_qualification" name="educational_qualification" value="{{old('educational_qualification')}}">
+                                
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row">
