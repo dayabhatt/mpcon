@@ -168,7 +168,9 @@ class AppraiseController extends Controller
 
         $appraisal->save();
 
-        return view('appraise.reviewappraisal',['appraisal'=>$appraisal]);
+        // return view('admin.appraise.reviewlist',['appraisal'=>$appraisal]);
+        return Redirect::route('appraisal.reviewlist');
+
 
     }
 

@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/appraisal/reviewlist',[AppraiseController::class,'reviewlist'])->name('appraisal.reviewlist');
     Route::get('/appraisal/{appraisal}/reviewappraisalupdate',[AppraiseController::class,'reviewappraisalupdate'])->name('appraisal.reviewappraisalupdate');
-    Route::get('/appraisal/{appraisal}/updatereview',[AppraiseController::class,'updatereview'])->name('appraisal.updatereview');
+    Route::post('/appraisal/{appraisal}/updatereview',[AppraiseController::class,'updatereview'])->name('appraisal.updatereview');
 
 
     Route::get('/appraisal/{appraise}/edit',[AppraiseController::class,'edit'])->name('appraisal.edit');

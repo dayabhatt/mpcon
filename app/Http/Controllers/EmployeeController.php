@@ -26,8 +26,9 @@ class EmployeeController extends Controller
     {
        
         $user = Auth::user();
+        $employees=Employee::all();
         
-        return view('admin.employee.index');
+        return view('admin.employee.index')->with('employesses',$employees);
     }
 
    

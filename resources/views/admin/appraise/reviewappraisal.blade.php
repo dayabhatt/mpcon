@@ -98,7 +98,7 @@
                     <hr/>
 
                     <section>
-                        <div class="row">
+                        <div class="row pt-2">
                             <div class="col-md-6">
                                 Present Place of Posting: {{old('present_place_of_posting',$appraisal->present_place_of_posting)}}
                             </div>
@@ -110,7 +110,7 @@
                         </div>
                         
                         @if($employeetype=='Professional')
-                        <div class="row">
+                        <div class="row pt-2">
                             <div class="col-md-6">
                                 Annual Plan Target: {{old('annual_plan_target',$appraisal->annual_plan_target)}}
                             </div>
@@ -125,7 +125,7 @@
 
                         @if($employeetype=='Professional')
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
                                     <h6>A.1 Key Responsibilities/Works Handled during the Reporting Period (Please Write 
                                         N.A., if not applicable)</h6>
@@ -134,38 +134,43 @@
                        
                        
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
-                                       <strong>i.    Project Reports/Consultancy:</strong> {{old('project_reports_consultancy',$appraisal->project_reports_consultancy)}}
+                                       <strong>i.    Project Reports/Consultancy:</strong> 
+                                       <div>{{old('project_reports_consultancy',$appraisal->project_reports_consultancy)}}</div>
                                     
                                 </div>
                                 
                                 
                             </div>
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
-                                   <strong>ii.	EDPs/SDPs/ Trainings Conducted/Handled:</strong> {{old('edp_sdp_trainings_conducted_handled',$appraisal->edp_sdp_trainings_conducted_handled)}}
+                                   <strong>ii.	EDPs/SDPs/ Trainings Conducted/Handled:</strong> 
+                                   <div>{{old('edp_sdp_trainings_conducted_handled',$appraisal->edp_sdp_trainings_conducted_handled)}}</div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
-                                   <strong>iii.  Specialized Trainings /Capacity Building Programmes/ Workshop/ Seminars   Organised :</strong>{{old('specialized_trainings_capacity',$appraisal->specialized_trainings_capacity)}}
+                                   <strong>iii.  Specialized Trainings /Capacity Building Programmes/ Workshop/ Seminars   Organised :</strong>
+                                   <div>{{old('specialized_trainings_capacity',$appraisal->specialized_trainings_capacity)}}</div>
                                 </div>
                                 
                                 
                             </div>
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
-                                       <strong>iii.	Reasons for Achievement/Non Achievement of Annual Plan Target:</strong>{{old('reasons_for_achievement_annual_plan_target',$appraisal->reasons_for_achievement_annual_plan_target)}}
+                                       <strong>iii.	Reasons for Achievement/Non Achievement of Annual Plan Target:</strong>
+                                       <div>{{old('reasons_for_achievement_annual_plan_target',$appraisal->reasons_for_achievement_annual_plan_target)}}</div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
-                                    <strong>v.Other Responsibilities handled:</strong> {{old('other_responsibilities_handled',$appraisal->other_responsibilities_handled)}}
+                                    <strong>v.Other Responsibilities handled:</strong> 
+                                    <div>{{old('other_responsibilities_handled',$appraisal->other_responsibilities_handled)}}</div>
                                 </div>
                                 
                             </div>
@@ -174,19 +179,21 @@
 
                         @if($appraisal->employee->employeetype!='Supporting Staff2')
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
-                                   <strong>A.2	Please indicate your areas of Interest of work where you would like to Share more responsibility:</strong> {{old('areas_of_interest_of_work',$appraisal->areas_of_interest_of_work)}}
+                                   <strong>A.2	Please indicate your areas of Interest of work where you would like to Share more responsibility:</strong> 
+                                   <div>{{old('areas_of_interest_of_work',$appraisal->areas_of_interest_of_work)}}</div>
                                 </div>
 
                                 
                                 
                             </div>
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
                                     
-                                    <strong>A.3 Please indicate the areas /subject on which you would like to undergo training in the future.:</strong>{{old('areas_undergo_training',$appraisal->areas_undergo_training)}}
+                                    <strong>A.3 Please indicate the areas /subject on which you would like to undergo training in the future.:</strong>
+                                    <div>{{old('areas_undergo_training',$appraisal->areas_undergo_training)}}</div>
                                 </div>
                             </div>
 
@@ -197,21 +204,15 @@
 
                     <section>
 
-                        <div class="row">
+                        
+
+                        <div class="row pt-2">
                             <div class="col-md-12">
-                                <h6>To be filled by the Reporting Officer :</h6>
+                                <h6 style="font-weight: bold">B.1   Rate the Appraise on the following parameters on a Scale of 1 to 10. (Please indicate reasons for significantly lower or higher ratings).</h6>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>B.1   Rate the Appraise on the following parameters on a Scale of 1 to 10. (Please indicate reasons for significantly lower or higher ratings).
-
-                                </h6>
-                            </div>
-                        </div>
-
-                        <div class="row">
+                        <div class="row pt-2">
                             <div class="col-md-12">
                                 <table id="tblappraisel" class="table">
                                     <thead>
@@ -400,7 +401,7 @@
                         </div>
 
                         
-                        <div class="row">
+                        <div class="row pt-2">
                             <div class="col-md-12">
                                 <div class="form-group mb-2">
                                     <label for="areas_of_interest_of_work" class="">B.2	Any other comments on appraise by the Reporting Officer:</label>
@@ -413,7 +414,7 @@
                         
                         @if($employeetype=='Supporting Staff')
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
                                     <div class="form-group mb-2">
                                         <label for="project_reports_consultancy" class="">B.2	Whether  the appraise has good working knowledge and experience in Computer ?</label>
@@ -423,7 +424,7 @@
                             </div>
                         @endif
 
-                        <div class="row">
+                        <div class="row pt-2">
                             <div class="col-md-12">
                                 <div class="form-group mb-2">
                                     <label for="areas_undergo_training" class="">B.3 Comments/recommendation of the Reporting Officer on the Training needs of  the appraise:</label>
@@ -433,7 +434,7 @@
                         </div>
 
                         @if($employeetype=='Supporting Staff2' || $employeetype=='Professional')
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-md-12">
                                     <div class="form-group mb-2">
                                         <label for="areas_of_interest_of_work" class="">C. Please indicate the areas on which the appraise needs improvement</label>
@@ -446,7 +447,7 @@
                             </div>
                         @endif
 
-                        <div class="row">
+                        <div class="row pt-2">
                             <div class="col-md-12">
                                 <div class="form-group mb-2">
                                     <label for="areas_undergo_training" class="">D. Report/Recommendations/Suggestions of the Managing Director:</label>
@@ -459,7 +460,7 @@
                     </section>
 
                     <section>
-                        <div class="row">
+                        <div class="row pt-2">
                             <div class="col-md-6">
                                 <div class="form-group mb-2">
                                     <label for="name_reporting_officer" class="">Name of the Reporting Officer:</label>
