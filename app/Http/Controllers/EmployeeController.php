@@ -26,9 +26,25 @@ class EmployeeController extends Controller
     {
        
         $user = Auth::user();
+
+        $user = Auth::user();
+        if($user->is_admin)
+        {
+            $employees=Employee::all();
+
+        }
+        else
+        {   
+            $employees=$user->employee;
+        }
+
         $employees=Employee::all();
-        
+
+            
+            
+        // return view('admin.employee.index')->with('employesses',$employees);
         return view('admin.employee.index')->with('employesses',$employees);
+
     }
 
    
@@ -56,9 +72,10 @@ class EmployeeController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'password' => 'confirmed|min:6',
+            'employeetype'=>'required'
          ]);
 
          $employeetype=$request->employeetype;

@@ -35,7 +35,7 @@
     <!--<h1 class="mt-4">Dashboard</h1>-->
     <div class="row">
         <div class="col-md-6">
-            <a href="{{  route('employeecreate') }}" class="btn btn-primary">New Employee</a>
+            <a href="{{  route('employeecreate') }}" class="btn btn-primary">New Employee </a>
         </div>
         <div class="col-md-6">
             <ol class="breadcrumb mb-4 text-right">
@@ -62,17 +62,18 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                {{-- <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Designation</th>
-                        <th>DOB</th>
-                        <th>phone</th>
-                        <th>email</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot> --}}
+                
                 <tbody>
+                    {{-- @if(auth()->user()->is_admin==0)
+                    <tr>
+                        <td>{{$employesses->first_name.' '.$employesses->last_name}}</td>
+                        <td>{{$employesses->designation}}</td>
+                        <td>{{$employesses->dob}}</td>
+                        <td>{{$employesses->phone}}</td>
+                        <td>{{$employesses->email}}</td>
+                        <td><a href="{{  route('employee.edit',$employesses->id) }}"><i class="fas fa-edit me-1"></i></a><a onclick="return confirm('Are you sure?')" href="{{  route('employee.delete',$employesses->id) }}"><i class="fas fa-trash me-1"></i></a></td>
+                    </tr>
+                    @else --}}
                     @foreach($employesses as $employee)
                     <tr>
                         <td>{{$employee->first_name.' '.$employee->last_name}}</td>
@@ -83,6 +84,7 @@
                         <td><a href="{{  route('employee.edit',$employee->id) }}"><i class="fas fa-edit me-1"></i></a><a onclick="return confirm('Are you sure?')" href="{{  route('employee.delete',$employee->id) }}"><i class="fas fa-trash me-1"></i></a></td>
                     </tr>
                     @endforeach
+                    {{-- @endif --}}
                     
                 </tbody>
             </table>

@@ -82,7 +82,7 @@
                                 <label for="employeetype" class="">Employee Type</label>
                                 <select class="form-control form-select" name="employeetype" id="employeetype">
                                     {{-- <option value="Jeff" {{ old('name', $DB->default-value) == 'Jeff' ? 'selected' : '' }}>Jeff</option> --}}
-                                    <option value="--">Select Type</option>
+                                    <option value="">Select Type</option>
                                     <option value="Professional" {{ old('employeetype') }}>Professional</option>
                                     <option value="Supporting Staff" {{ old('employeetype') }}>Supporting Staff</option>
                                     <option value="Supporting Staff2" {{ old('employeetype') }}>Supporting Staff2</option>

@@ -81,9 +81,9 @@
                         <div class="col-md-4">
                             <div class="form-group mb-2">
                                 <label for="employeetype" class="">Employee Type</label>
-                                <select class="form-control" name="employeetype" id="employeetype">
+                                <select class="form-control form-select" name="employeetype" id="employeetype">
                                     {{-- <option value="Jeff" {{ old('name', $DB->default-value) == 'Jeff' ? 'selected' : '' }}>Jeff</option> --}}
-                                    <option value="--">Select Type</option>
+                                    <option value="">Select Type</option>
                                     <option value="Professional" {{ old('employeetype',$employee->employeetype)=='Professional'?'selected':'' }}>Professional</option>
                                     <option value="Supporting Staff" {{ old('employeetype',$employee->employeetype)=='Supporting Staff'?'selected':'' }}>Supporting Staff</option>
                                     <option value="Supporting Staff2" {{ old('employeetype',$employee->employeetype)=='Supporting Staff2'?'selected':'' }}>Supporting Staff2</option>
@@ -101,8 +101,8 @@
                         <div class="col-md-4">
                             <div class="form-group mb-2">
                                 <label for="designation" class="">Designation</label>
-                                <select class="form-control"name="designation" id="designation" >
-                                    <option value="--">Select Type</option>
+                                <select class="form-control form-select"name="designation" id="designation" >
+                                    <option value="">Select Type</option>
                                     <option value="MD" {{old('designation',$employee->designation)=='MD'?'selected':''}}>MD</option>
                                     <option value="Manager" {{old('designation',$employee->designation)=='Manager'?'selected':''}}>Manager</option>
                                     <option value="Accountant" {{old('designation',$employee->designation)=='Accountant'?'selected':''}}>Accountant</option>
@@ -119,7 +119,7 @@
                         <div class="col-md-4">
                             <div class="form-group mb-2">
                                 <label for="employee_parent_id" class="">Reporting Employee</label>
-                                <select class="form-control"name="employee_parent_id" id="employee_parent_id" >
+                                <select class="form-control form-select"name="employee_parent_id" id="employee_parent_id" >
                                     <option value="--">Select Type</option>
                                     {{-- @for($i=1;$i<=count($parents);$i++) --}}
                                     @foreach($parents as $parent)
