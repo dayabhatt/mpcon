@@ -80,11 +80,13 @@
                         <div class="col-md-4">
                             <div class="form-group mb-2">
                                 <label for="employeetype" class="">Employee Type</label>
-                                <select class="form-control" name="employeetype" id="employeetype">
+                                <select class="form-control form-select" name="employeetype" id="employeetype">
                                     {{-- <option value="Jeff" {{ old('name', $DB->default-value) == 'Jeff' ? 'selected' : '' }}>Jeff</option> --}}
                                     <option value="--">Select Type</option>
                                     <option value="Professional" {{ old('employeetype') }}>Professional</option>
                                     <option value="Supporting Staff" {{ old('employeetype') }}>Supporting Staff</option>
+                                    <option value="Supporting Staff2" {{ old('employeetype') }}>Supporting Staff2</option>
+
 
 
                                 </select>
@@ -99,7 +101,7 @@
                         <div class="col-md-4">
                             <div class="form-group mb-2">
                                 <label for="designation" class="">Designation</label>
-                                <select class="form-control"name="designation" id="designation" >
+                                <select class="form-control form-select"name="designation" id="designation" >
                                     <option value="--">Select Type</option>
                                     <option value="MD">MD</option>
                                     <option value="Manager">Manager</option>
@@ -117,7 +119,7 @@
                         <div class="col-md-4">
                             <div class="form-group mb-2">
                                 <label for="employee_parent_id" class="">Reporting Employee</label>
-                                <select class="form-control"name="employee_parent_id" id="employee_parent_id" >
+                                <select class="form-control form-select" name="employee_parent_id" id="employee_parent_id" >
                                     <option value="--">Select Type</option>
                                     {{-- @for($i=1;$i<=count($parents);$i++) --}}
                                     @foreach($parents as $parent)

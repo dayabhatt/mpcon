@@ -32,13 +32,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/employee/{employee}/delete',[EmployeeController::class,'destroy'])->name('employee.delete');
     Route::get('/employeedata/{employee}',[EmployeeController::class,'employeedata'])->name('employeedata');
     
-    Route::get('/appraisecreate',[AppraiseController::class,'create'])->name('appraise.create');
-    Route::post('/appraisesubmit',[AppraiseController::class, 'store'])->name('appraise.submit');
-    Route::get('/appraise',[AppraiseController::class,'index'])->name('appraise');
-    Route::get('/appraise/{appraise}/edit',[AppraiseController::class,'edit'])->name('appraise.edit');
-    Route::post('/appraise/{appraise}/update',[AppraiseController::class,'update'])->name('appraise.update');
-    Route::get('/appraise/{appraise}/delete',[AppraiseController::class,'destroy'])->name('appraise.delete');
-    Route::get('/appraise/{appraise}/updatereport',[AppraiseController::class,'updatereport'])->name('appraise.updatereport');
+    Route::get('/appraisal/create',[AppraiseController::class,'create'])->name('appraisal.create');
+    Route::post('/appraisal/submit',[AppraiseController::class, 'store'])->name('appraisal.submit');
+    Route::get('/appraisal',[AppraiseController::class,'index'])->name('appraisal');
+
+    Route::get('/appraisal/reviewlist',[AppraiseController::class,'reviewlist'])->name('appraisal.reviewlist');
+    Route::get('/appraisal/{appraisal}/reviewappraisalupdate',[AppraiseController::class,'reviewappraisalupdate'])->name('appraisal.reviewappraisalupdate');
+    Route::get('/appraisal/{appraisal}/updatereview',[AppraiseController::class,'updatereview'])->name('appraisal.updatereview');
+
+
+    Route::get('/appraisal/{appraise}/edit',[AppraiseController::class,'edit'])->name('appraisal.edit');
+    Route::post('/appraisal/{appraise}/update',[AppraiseController::class,'update'])->name('appraisal.update');
+    Route::get('/appraisal/{appraise}/delete',[AppraiseController::class,'destroy'])->name('appraisal.delete');
+    Route::get('/appraisal/{appraise}/updatereport',[AppraiseController::class,'updatereport'])->name('appraisal.updatereport');
     
 
 });

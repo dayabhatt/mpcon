@@ -34,9 +34,7 @@
     <div class="container-fluid px-4">
         <!--<h1 class="mt-4">Dashboard</h1>-->
         <div class="row">
-            <div class="col-md-6">
-                <a href="{{  route('appraisal.create') }}" class="btn btn-primary">New Appraisel</a>
-            </div>
+           
             <div class="col-md-6">
                 <ol class="breadcrumb mb-4 text-right">
                     <li class="breadcrumb-item active">Appraisel List</li>
@@ -70,7 +68,7 @@
                             <td>{{$appraise['dob']}}</td>
                             <td>{{$appraise['present_place_of_posting']}}</td>
                             <td>{{$appraise['appraisal_for_the_period']}}</td>
-                            <td><a href="{{  route('appraisal.edit',$appraise['id']) }}"><i class="fas fa-edit me-1"></i></a><a onclick="return confirm('Are you sure?')" href="{{  route('appraisal.delete',$appraise['id']) }}"><i class="fas fa-trash me-1"></i></a><a href="{{  route('appraisal.updatereport',$appraise['id']) }}" title="Send to Reporting Officer!"><i class="fas fa-marker me-1"></i></a></td>
+                            <td><a href="{{  route('appraisal.reviewappraisalupdate',$appraise['id']) }}"><i class="fas fa-edit me-1"></i></a><a onclick="return confirm('Are you sure?')" href="{{  route('appraisal.delete',$appraise['id']) }}"><i class="fas fa-trash me-1"></i></a></td>
                         </tr>
                         @endforeach
                         

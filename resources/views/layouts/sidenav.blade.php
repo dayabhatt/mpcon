@@ -16,7 +16,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">User:{{$user->name}}</a></li>
+                    <li><a class="dropdown-item" href="#!">{{auth()->user()->employee->first_name.' '.auth()->user()->employee->last_name }}</a></li>
                     {{-- <li><a class="dropdown-item" href="#!">Activity Log</a></li> --}}
                     <li><hr class="dropdown-divider" /></li>
 
@@ -64,15 +64,28 @@
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Appraise
+                            Appraisal
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{ route('appraise.create') }}">Create</a>
-                                <a class="nav-link" href="{{ route('appraise') }}">List</a>
+                                <a class="nav-link" href="{{ route('appraisal.create') }}">Create</a>
+                                <a class="nav-link" href="{{ route('appraisal') }}">List</a>
                             </nav>
                         </div>
+                        @if(auth()->user()->employee->subordinates()->count())
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Review Appraisal
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('appraisal.reviewlist') }}">Appraisal List</a>
+                                
+                            </nav>
+                        </div>
+                        @endif
                         
                         
                     </div>

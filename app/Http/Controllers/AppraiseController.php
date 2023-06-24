@@ -19,12 +19,14 @@ class AppraiseController extends Controller
      */
     public function index()
     {
-        $appraises=Appraise::all();
+        
         $user = Auth::user();
+        $employee=$user->employee;
+        $appraisals=$employee->appraisals()->latest()->get();
         $output=[];
 
-        if($appraises){
-            foreach($appraises as $appraise){
+        if($appraisals->count()){
+            foreach($appraisals as $appraise){
                 $employee=Employee::find($appraise->employee_id);
                 $name=$employee->first_name.' '.$employee->last_name;
                 $designation=$employee->designation;
@@ -40,18 +42,22 @@ class AppraiseController extends Controller
     }
 
     
-    public function create()
-    {
-        $appraises=Appraise::all();
+
+    function reviewlist(){
         $user = Auth::user();
+        $employee=$user->employee;
+        $subordinateids=$employee->subordinates()->pluck('id')->toArray();
+        $appraisals=Appraise::whereIn('employee_id',$subordinateids)->where('send_to_reporting_officer',1)->latest()->get();
+        
         $output=[];
 
-        if($appraises){
-            foreach($appraises as $appraise){
-                $employee=Employee::find($appraise->employee_id);
-                $name=$employee->first_name.' '.$employee->last_name;
-                $designation=$employee->designation;
-                $dob=$employee->dob;
+        if($appraisals->count()){
+            foreach($appraisals as $appraise){
+                
+                $name=$appraise->employee->first_name.' '.$appraise->employee->last_name;
+                
+                $designation=$appraise->employee->designation;
+                $dob=$appraise->employee->dob;
 
                 $output[]=['name'=>$name,'designation'=>$designation,'dob'=>$dob
                 ,'present_place_of_posting'=>$appraise->present_place_of_posting
@@ -59,9 +65,15 @@ class AppraiseController extends Controller
                 ,'id'=>$appraise->id];
             }
         }
+        // return view('admin.appraise.index',['appraises'=>$output]);
+        return view('admin.appraise.reviewlist',['appraises'=>$output]);
 
-        $employees=Employee::all();
-        return view('admin.appraise.create')->with('employees',$employees)->with('appraises',$output)->with('user',$user);
+    }
+    public function create()
+    {
+        $user = Auth::user();
+        $employee=$user->employee;   
+        return view('admin.appraise.create',['employeetype'=>$employee->employeetype]);
     }
 
     public function updatereport(Request $request,Appraise $appraise)
@@ -70,13 +82,114 @@ class AppraiseController extends Controller
 
         $appraise->save();
 
-        return Redirect::route('appraise');
+        return Redirect::route('appraisal');
     }
-    
+
+    function updatereview(Request $request,Appraise $appraisal)
+    {
+        
+        $appraisal->appraise_Officer_date=date('d/m/Y');
+        $appraisal->integrity_honesty_ranking=$request->integrity_honesty_ranking;
+        $appraisal->integrity_honesty_comments=$request->integrity_honesty_comments;
+        $appraisal->behaviour_colleagues_ranking=$request->behaviour_colleagues_ranking;
+        $appraisal->behaviour_colleagues_comments=$request->behaviour_colleagues_comments;
+        $appraisal->discipline_observance_ranking=$request->discipline_observance_ranking;
+        $appraisal->discipline_observance_comments=$request->discipline_observance_comments;
+        $appraisal->quality_of_work_ranking=$request->quality_of_work_ranking;
+        $appraisal->quality_of_work_comments=$request->quality_of_work_comments;
+        $appraisal->initiative_dependability_ranking=$request->initiative_dependability_ranking;
+        $appraisal->initiative_dependability_comments=$request->initiative_dependability_comments;
+        $appraisal->analytical_skills_ranking=$request->analytical_skills_ranking;
+        $appraisal->analytical_skills_comments=$request->analytical_skills_comments;
+        $appraisal->writing_drafting_ranking=$request->writing_drafting_ranking;
+        $appraisal->writing_drafting_comments=$request->writing_drafting_comments;
+        $appraisal->annual_plan_achievement_ranking=$request->annual_plan_achievement_ranking;
+        $appraisal->annual_plan_achievement_comments=$request->annual_plan_achievement_comments;
+        $appraisal->comments_by_reporting_officer=$request->comments_by_reporting_officer;
+
+        $appraisal->recommendation_reporting_officer=$request->recommendation_reporting_officer;
+        $appraisal->areas_improvement=$request->areas_improvement;
+        $appraisal->suggestions_managing_director=$request->suggestions_managing_director;
+        $appraisal->reporting_Officer_date=date('d/m/Y');
+        $appraisal->managing_director_date=date('d/m/Y');
+
+        $appraisal->key_responsibilities_supporting_staff=$request->key_responsibilities_supporting_staff;
+        $appraisal->areas_of_interest_supporting_staff=$request->areas_of_interest_supporting_staff;
+        $appraisal->undergo_training_supporting_staff=$request->undergo_training_supporting_staff;
+        $appraisal->reporting_officer_date_supporting_staff=date('d/m/Y');
+
+        $appraisal->quality_of_work_ranking_s_staff=$request->quality_of_work_ranking_s_staff;
+        $appraisal->quality_of_work_comments_s_staff=$request->quality_of_work_comments_s_staff;
+        $appraisal->volum_of_work_ranking=$request->volum_of_work_ranking;
+        $appraisal->volum_of_work_comments=$request->volum_of_work_comments;
+        $appraisal->dependability_ranking=$request->dependability_ranking;
+        $appraisal->dependability_comments=$request->dependability_comments;
+        $appraisal->initiative_ranking=$request->initiative_ranking;
+        $appraisal->initiative_comments=$request->initiative_comments;
+        $appraisal->job_knowledge_ranking=$request->job_knowledge_ranking;
+        $appraisal->job_knowledge_comments=$request->job_knowledge_comments;
+        $appraisal->communication_oral_ranking=$request->communication_oral_ranking;
+        $appraisal->communication_oral_comments=$request->communication_oral_comments;
+        $appraisal->communication_writing_ranking=$request->communication_writing_ranking;
+        $appraisal->communication_writing_comments=$request->communication_writing_comments;
+
+        $appraisal->attitude_ranking=$request->attitude_ranking;
+        $appraisal->attitude_comments=$request->attitude_comments;
+        $appraisal->regularity_ranking=$request->regularity_ranking;
+        $appraisal->regularity_comments=$request->regularity_comments;
+
+        $appraisal->working_knowledge_computer=$request->working_knowledge_computer;
+        $appraisal->other_comment_ss=$request->other_comment_ss;
+        $appraisal->suggestions_md_ss=$request->suggestions_md_ss;
+        $appraisal->reporting_officer_name=$request->reporting_officer_name;
+        $appraisal->reporting_officer_designation=$request->reporting_officer_designation;
+        $appraisal->reporting_officer_date_ss=date('d/m/Y');
+        $appraisal->key_responsibilities_supporting_staff_last=$request->key_responsibilities_supporting_staff_last;
+        $appraisal->filled_reporting_officer=$request->filled_reporting_officer;
+        $appraisal->regularity_punctuality_ranking=$request->regularity_punctuality_ranking;
+        $appraisal->regularity_punctuality_comments=$request->regularity_punctuality_comments;
+        $appraisal->trust_worthiness_ranking=$request->trust_worthiness_ranking;
+        $appraisal->trust_worthiness_comments=$request->trust_worthiness_comments;
+        $appraisal->courtesy_ranking=$request->courtesy_ranking;
+        $appraisal->courtesy_comments=$request->courtesy_comments;
+        $appraisal->diligence_ranking=$request->diligence_ranking;
+        $appraisal->diligence_comments=$request->diligence_comments;
+        $appraisal->willingness_ranking=$request->willingness_ranking;
+        $appraisal->willingness_comments=$request->willingness_comments;
+
+        $appraisal->comment_rofficer=$request->comment_rofficer;
+        $appraisal->needs_improvement=$request->needs_improvement;
+        $appraisal->name_reporting_officer=$request->name_reporting_officer;
+        $appraisal->designation_reporting_officer=$request->designation_reporting_officer;
+        $appraisal->md_suggestion=$request->md_suggestion;
+        $appraisal->md_date=date('d/m/Y');
+
+
+
+        $appraisal->save();
+
+        return view('appraise.reviewappraisal',['appraisal'=>$appraisal]);
+
+    }
+
+    function reviewappraisal(Request $request, Appraise $appraisal){
+        return view('appraise.reviewappraisal',['appraisal'=>$appraisal]);
+    }
+    function reviewappraisalupdate(Request $request, Appraise $appraisal){
+        $user = Auth::user();
+        
+        $employee=$user->employee;   
+
+        
+        
+
+        $employees=Employee::all();
+        return view('admin.appraise.reviewappraisal',['employeetype'=>$employee->employeetype,'appraisal'=>$appraisal]);
+
+    }
     public function store(Request $request)
     {
         $this->validate($request,[
-            'employee_id'=>'required',
             'present_place_of_posting'=>'required',
             'appraisal_for_the_period'=>'required',
             'annual_plan_target'=>'required',
@@ -84,7 +197,8 @@ class AppraiseController extends Controller
 
         ]);
 
-        $employee_id=$request->employee_id;
+        $employee_id=auth()->user()->employee->id;
+        $send_to_reporting_officer=$request->has('submitandsend')?1:0;
         $present_place_of_posting=$request->present_place_of_posting;
         $appraisal_for_the_period=$request->appraisal_for_the_period;
         $annual_plan_target=$request->annual_plan_target;
@@ -254,12 +368,12 @@ class AppraiseController extends Controller
             'designation_reporting_officer'=>$designation_reporting_officer,
             'md_suggestion'=>$md_suggestion,
             'md_date'=>$md_date,
-
+            'send_to_reporting_officer'=>$send_to_reporting_officer
             
        
         ]);
 
-        return Redirect::route('appraise')->with('appraises',$appraise)->withSuccess('Employee Save Successfully');
+        return Redirect::route('appraisal')->with('appraises',$appraise)->withSuccess('Employee Save Successfully');
 
     }
 
@@ -284,11 +398,12 @@ class AppraiseController extends Controller
     {
         $user = Auth::user();
         
+        $employee=$user->employee;   
 
         
 
         $employees=Employee::all();
-        return view('admin.appraise.edit')->with('employees',$employees)->with('appraise',$appraise)->with('user',$user);
+        return view('admin.appraise.edit',['employeetype'=>$employee->employeetype,'appraise'=>$appraise]);
     }
 
     /**
@@ -300,8 +415,8 @@ class AppraiseController extends Controller
      */
     public function update(Request $request, Appraise $appraise)
     {
+
         $this->validate($request,[
-            'employee_id'=>'required',
             'present_place_of_posting'=>'required',
             'appraisal_for_the_period'=>'required',
             'annual_plan_target'=>'required',
@@ -309,11 +424,16 @@ class AppraiseController extends Controller
 
         ]);
 
-        $appraise->employee_id=$request->employee_id;
+
+
+        $appraise->employee_id=auth()->user()->employee->id;
+        $appraise->send_to_reporting_officer=$request->has('submitandsend')?1:0;
+
         $appraise->present_place_of_posting=$request->present_place_of_posting;
         $appraise->appraisal_for_the_period=$request->appraisal_for_the_period;
         $appraise->annual_plan_target=$request->annual_plan_target;
         $appraise->annual_plan_achievement=$request->annual_plan_achievement;
+
         $appraise->project_reports_consultancy=$request->project_reports_consultancy;
         $appraise->edp_sdp_trainings_conducted_handled=$request->edp_sdp_trainings_conducted_handled;
         $appraise->specialized_trainings_capacity=$request->specialized_trainings_capacity;
@@ -321,6 +441,8 @@ class AppraiseController extends Controller
         $appraise->other_responsibilities_handled=$request->other_responsibilities_handled;
         $appraise->areas_of_interest_of_work=$request->areas_of_interest_of_work;
         $appraise->areas_undergo_training=$request->areas_undergo_training;
+
+
         $appraise->appraise_Officer_date=date('d/m/Y');
         $appraise->integrity_honesty_ranking=$request->integrity_honesty_ranking;
         $appraise->integrity_honesty_comments=$request->integrity_honesty_comments;
@@ -339,6 +461,7 @@ class AppraiseController extends Controller
         $appraise->annual_plan_achievement_ranking=$request->annual_plan_achievement_ranking;
         $appraise->annual_plan_achievement_comments=$request->annual_plan_achievement_comments;
         $appraise->comments_by_reporting_officer=$request->comments_by_reporting_officer;
+
         $appraise->recommendation_reporting_officer=$request->recommendation_reporting_officer;
         $appraise->areas_improvement=$request->areas_improvement;
         $appraise->suggestions_managing_director=$request->suggestions_managing_director;
@@ -364,6 +487,7 @@ class AppraiseController extends Controller
         $appraise->communication_oral_comments=$request->communication_oral_comments;
         $appraise->communication_writing_ranking=$request->communication_writing_ranking;
         $appraise->communication_writing_comments=$request->communication_writing_comments;
+
         $appraise->attitude_ranking=$request->attitude_ranking;
         $appraise->attitude_comments=$request->attitude_comments;
         $appraise->regularity_ranking=$request->regularity_ranking;
@@ -399,7 +523,7 @@ class AppraiseController extends Controller
 
         $appraise->save();
 
-        return Redirect::route('appraise')->with('appraises',$appraise)->withSuccess('Employee Save Successfully');
+        return Redirect::route('appraisal',['appraises'=>$appraise]);
     }
 
     
@@ -407,7 +531,7 @@ class AppraiseController extends Controller
     {
         $appraise->delete();
 
-        return Redirect::route('appraise');
+        return Redirect::route('appraisal');
 
     }
 }

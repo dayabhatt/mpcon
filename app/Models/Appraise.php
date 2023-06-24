@@ -52,4 +52,12 @@ class Appraise extends Model
                         ,'name_reporting_officer','designation_reporting_officer'
                         ,'md_suggestion','md_date'
                         ,'send_to_reporting_officer'];
+
+    // function employee(){
+    //     return $this->belongsTo('App\Models\Appraise','employee_id');
+    // }
+
+    function employee(){
+        return $this->belongsTo('App\Models\Employee','employee_id');
+    }
 }
